@@ -1,5 +1,6 @@
 package com.Ezenweb.domain.dto;
 
+import com.Ezenweb.domain.entity.MemberEntity;
 import lombok.*;
 
 @NoArgsConstructor
@@ -9,9 +10,16 @@ import lombok.*;
 @ToString
 @Builder
 public class MemberDto {
-    private String name;
-    private String email;
-    private String organization;
+    private int mno;
+    private String memail;
+    private String mpassword;
 
-
+    //dto -> entity 변환
+    public MemberEntity toEntity(){
+        return MemberEntity.builder()
+                .mno(this.mno)
+                .memail(this.memail)
+                .mpassword(this.mpassword)
+                .build();
+    }
 }
