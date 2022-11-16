@@ -7,7 +7,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.*;
 
-@RestController     //Restful API 사용하는 controller 명시
+import java.util.List;
+
+@RestController     //Restful API 사용하는 controller 명시 [controller + @ResponseBody]
 @RequestMapping("/member")      //공통 URL 매핑 주소
 public class MemberController {
 
@@ -35,7 +37,7 @@ public class MemberController {
     @GetMapping("/logout")
     public Resource getlogout() { return new ClassPathResource("templates/member/logout.html"); }
     // ----------------------- 서비스/기능 매핑 -------------------------------
-    @PostMapping("/setmember")  //회원가입 기능
+    @PostMapping("/setmember")      //1. 회원가입 기능
     public int setmember(@RequestBody MemberDto memberDto){
         //1. 테스트 dto 생성
         /*MemberDto memberDto = MemberDto.builder()
@@ -50,19 +52,19 @@ public class MemberController {
         return result;
     }
 
-    @PostMapping("/getmember")  //로그인 기능
+    @PostMapping("/getmember")      //2. 로그인 기능
     public int getmember(@RequestBody MemberDto memberDto){
         int result = memberService.getmember(memberDto);
         return result;
     }
 
-    @GetMapping("/getpassword")
+    @GetMapping("/getpassword")     //3. 비밀번호찾기
     public String getpassword(@RequestParam("memail") String memail){
         String result = memberService.getpassword(memail);
         return result;
     }
 
-    @DeleteMapping("/setdelete")
+    @DeleteMapping("/setdelete")    //4. 회원탈퇴
     public int setdelete(@RequestParam("mpassword") String mpassword){
         //1. 서비스 처리
         int result = memberService.setdelete(mpassword);
@@ -70,20 +72,30 @@ public class MemberController {
         return result;
     }
 
-    @PutMapping("/setupdate")
+    @PutMapping("/setupdate")       //5. 회원정보수정
     public int setupdate(@RequestParam("mpassword") String mpassword){
         int result = memberService.setupdate(mpassword);
         return result;
     }
 
-    @PutMapping("/setlogout")
+    @GetMapping("/getloginMno")     //6. 로그인 정보 확인
+    public int getloginMno(){
+        int result = memberService.getloginMno();
+        return result;
+    }
+
+    @PutMapping("/setlogout")       //7. 로그아웃
     public void setupdate(){
         memberService.setlogout();
     }
 
-    @GetMapping("/getloginMno")
-    public int getloginMno(){
-        int result = memberService.getloginMno();
-        return result;
+    @GetMapping("/list")            //8. 회원목록
+    public List<MemberDto> list() {
+        return memberService.list();
+    }
+
+    @GetMapping("/getauth")
+    public String getauth(@RequestParam("toemail") String toemail) {
+        return memberService.getauth(toemail);
     }
 }

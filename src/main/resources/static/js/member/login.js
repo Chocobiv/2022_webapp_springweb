@@ -18,7 +18,7 @@ function getmember(){
                     break
                 case 1:
                     output = '로그인 성공'
-                    location.href = '/'
+                    location.href = '/' //index.html 반환해주는 매핑 주소
                     break
                 case 2:
                     output = '비밀번호가 틀렸습니다.'
