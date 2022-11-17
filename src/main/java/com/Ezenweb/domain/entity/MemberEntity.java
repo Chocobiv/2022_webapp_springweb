@@ -4,7 +4,6 @@ import com.Ezenweb.domain.dto.MemberDto;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity         //해당 연결된 DB의 테이블과 매핑[연결]
 @Table(name = "member")     //DB에서 사용될 테이블 이용
