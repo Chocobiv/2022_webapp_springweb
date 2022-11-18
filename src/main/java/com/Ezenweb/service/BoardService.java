@@ -66,14 +66,13 @@ public class BoardService {
     //5. 게시물 수정 [첨부파일]
     @Transactional
     public boolean upboard(@RequestBody BoardDto boardDto){
-        BoardEntity entity = boardRepository.findById(boardDto.getBno()).get();
-        entity.setBno(boardDto.getBno());
-        entity.setBtitle(boardDto.getBtitle());
-        entity.setBview(boardDto.getBview());
-        entity.setBfile(boardDto.getBfile());
-        entity.setBfile(boardDto.getBfile());
-        entity.setMno(boardDto.getMno());
-        entity.setCno(boardDto.getCno());
-        return true;
+        Optional<BoardEntity> optional = boardRepository.findById(boardDto.getBno());
+        if(optional.isPresent()) {
+            BoardEntity entity = optional.get();
+            entity.setBtitle(boardDto.getBtitle());
+            entity.setBcontent(boardDto.getBcontent());
+            entity.setBfile(boardDto.getBfile());
+            return true;
+        }else return false;
     }
 }

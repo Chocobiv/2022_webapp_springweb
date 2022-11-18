@@ -3,7 +3,8 @@
 function setboard(){
     let data = {
         btitle : document.querySelector('.btitle').value,
-        bcontent : document.querySelector('.bcontent').value
+        bcontent : document.querySelector('.bcontent').value,
+        bfile : document.querySelector('.bfile').value
     }
     $.ajax({
         url:'/board/setboard',
@@ -12,6 +13,8 @@ function setboard(){
         contentType: 'application/json',    //@RequestBody
         success: function(re) {
             alert(re)
+            if(re == 'true'){ location.href = '/board/list' }
+            else{ alert('글등록 실패') }
         }
     })
 }

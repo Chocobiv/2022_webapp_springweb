@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController             //해당 클래스가 컨트롤 목적 사용
@@ -60,7 +58,7 @@ public class BoardController {
         return boardService.delboard(bno);
     }
 
-    //5. 게ㅔ시물 수정 [첨부파일]
+    //5. 게시물 수정 [첨부파일]
     @PutMapping("/upboard")
     public boolean upboard(@RequestBody BoardDto boardDto){
         return boardService.upboard(boardDto);

@@ -23,7 +23,7 @@ public class BoardEntity {
     @Column(nullable = false)   //not null
     @ColumnDefault("0")         //JPA insert 할 경우 default
     private int bview;          //조회수
-    @Column(nullable = false)   //not null
+    //@Column(nullable = false)   //not null
     private String bfile;       //첨부파일
     @Column(nullable = false)   //not null
     private int mno;            //작성자 [회원번호-fk]

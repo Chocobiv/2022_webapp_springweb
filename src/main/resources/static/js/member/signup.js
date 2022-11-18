@@ -20,12 +20,14 @@ function setmember(){
         contentType: 'application/json',
         success: function(re){
             alert(re)
+            location.href = '/'
         }
     })
 }
 
 //2. 인증코드 받기
-let auth = null         //발급된 인증코드
+//let auth = null         //발급된 인증코드
+let auth = 1234         // [ 임시 ]
 let timer = 0           //인증 시간
 let timerinter = null   //setInterval
 function getauth(){
