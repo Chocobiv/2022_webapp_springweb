@@ -27,6 +27,24 @@ public class MemberService {
     JavaMailSender javaMailSender;              //java mail sender 라이브러리 설치해서 사용 가능
 
     // ------------------------ 서비스 메소드 ------------------------------
+
+    // ---------------- 로그인된 엔티티 호출 ------------ //
+    public MemberEntity getEntity() {
+        //1. 로그인 정보 확인 [세션 = loginMno]
+        Object object = request.getSession().getAttribute("loginMno");
+        if(object == null){ return null; }     //로그인이 안됐으면 그냥 종료
+
+        //2. 로그인된 회원번호
+        int mno = (Integer)object;
+
+        //3. 회원번호 -> 회원정보 호출
+        Optional<MemberEntity> optional = memberRepository.findById(mno);
+        if(!optional.isPresent()){ return null; }
+        //4. 로그인된 회원의 엔티티
+        return optional.get();
+    }
+    // ---------------------------------------------- //
+
     //1. 회원가입
     //@Transactional  //트랜잭션
     @Transactional

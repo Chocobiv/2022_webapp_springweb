@@ -10,7 +10,7 @@ function getboard(){
         data: {"bno": bno},
         type: 'get',
         success: function(re) {
-            let html = '제목 : '+re.btitle+'<Br>작성자 : '+re.mno+'<br>내용 : '+re.bcontent+'<br>첨부파일 : '+re.bfile+'<br>조회수 : '+re.bview
+            let html = '제목 : '+re.btitle+'<Br>작성자 : '+re.memail+'<br>내용 : '+re.bcontent+'<br>첨부파일 : '+re.bfile+'<br>조회수 : '+re.bview
             document.querySelector('.viewbox').innerHTML = html
         }
     })

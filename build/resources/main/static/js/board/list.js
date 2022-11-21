@@ -1,9 +1,13 @@
+// -------------- 전역변수 --------------------
+let bcno=0  //선택된 카테고리 [기본값 0 : 전체보기]
+
+//1. 게시물 출력 [1. 페이지 열렸을 때 2. 카테고리버튼 클릭했을 때]
 boardlist()
-//1. 게시물 출력
 function boardlist(){
     $.ajax({
         url: '/board/boardlist',
         type: 'get',
+        data: {'bcno':bcno},        //bcno : 카테고리번호
         success: function(re) {
             console.log(re)
 
@@ -37,4 +41,27 @@ function getloginMno(){
             document.querySelector('.writebox').innerHTML = html
         }
     })
+}
+
+//3. 모든 카테고리 출력
+bcategorylist()
+function bcategorylist(){
+    $.ajax({
+        url: '/board/bcategorylist',
+        type: 'get',
+        success: function(re) {
+            let html = '<button type="button" onclick="bcnochange(0)" style="margin-right:5px; background-color: bisque; border: solid 1px #999999; height: 30px;">전체보기</button>'
+            re.forEach( (bc) => {
+                html += '<button type="button" onclick="bcnochange('+bc.bcno+')" style="margin-right:5px; background-color: bisque; border: solid 1px #999999; height: 30px;">'+bc.bcname+'</button>'
+            })
+            document.querySelector('.bcategorybox').innerHTML = html
+        }
+    })
+}
+
+//4. 카테고리 버튼을 클릭했을 때 선택된 카테고리 번호 대입
+function bcnochange(cno){
+    bcno = cno
+    alert(bcno+"의 카테고리 선택")
+    boardlist()
 }

@@ -15,7 +15,7 @@ public class BoardDto {
     //작성일, 수정일 -> 상속 (여러 엔티티에서 사용되는 필드라서)
     private int bview;          //조회수
     private String bfile;       //첨부파일
-    private int mno;            //작성자 [회원번호-fk]
+    private int mno;            //작성자 회원번호
     private int bcno;           //카테고리 [카테고리-fk]
     private String memail;      //회원아이디
 
