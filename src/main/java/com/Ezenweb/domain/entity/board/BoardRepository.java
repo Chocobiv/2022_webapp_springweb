@@ -1,5 +1,6 @@
-package com.Ezenweb.domain.entity;
+package com.Ezenweb.domain.entity.board;
 
+import com.Ezenweb.domain.entity.board.BoardEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -13,7 +13,7 @@ function setboard(){
         contentType: 'application/json',    //@RequestBody
         success: function(re) {
             alert(re)
-            if(re == 'true'){ location.href = '/board/list' }
+            if(re == true){ location.href = '/board/list' }
             else{ alert('글등록 실패') }
         }
     })

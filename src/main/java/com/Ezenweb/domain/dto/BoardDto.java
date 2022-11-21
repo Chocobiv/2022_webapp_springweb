@@ -1,6 +1,6 @@
 package com.Ezenweb.domain.dto;
 
-import com.Ezenweb.domain.entity.BoardEntity;
+import com.Ezenweb.domain.entity.board.BoardEntity;
 import lombok.*;
 
 //lombok: 생성자, Get/Set, ToString, 빌더패턴
@@ -16,19 +16,17 @@ public class BoardDto {
     private int bview;          //조회수
     private String bfile;       //첨부파일
     private int mno;            //작성자 [회원번호-fk]
-    private int cno;            //카테고리 [카테고리-fk]
+    private int bcno;           //카테고리 [카테고리-fk]
+    private String memail;      //회원아이디
 
     //1. 형변환
     public BoardEntity toEntity() {
-        return BoardEntity
-                .builder()
+        return BoardEntity.builder()
                 .bno(this.bno)
                 .btitle(this.btitle)
                 .bcontent(this.bcontent)
                 .bview(this.bview)
                 .bfile(this.bfile)
-                .mno(this.mno)
-                .cno(this.cno)
                 .build();
     }
 }

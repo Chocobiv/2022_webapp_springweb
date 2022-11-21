@@ -9,15 +9,19 @@ function boardlist(){
 
             let html = `<tr> <th>번호</th><th>제목</th><th>작성자</th> </tr>`
             re.forEach((b)=>{
-                html += `<tr> <td>${b.bno}</td><td>${b.btitle}</td><td>${b.mno}</td> </tr>`
+                html += '<tr onclick="getview('+b.bno+')"> <td>'+b.bno+'</td><td>'+b.btitle+'</td><td>'+b.memail+'</td> </tr>'
             })
             document.querySelector('.btable').innerHTML = html
         }
     })
 }
 
-function viewboard(bno){
-    alert(bno)
+//2. 게시물 조회 페이지 [페이지 전환 3가지 방법 -> 자바:세션-서버가 종료될 때 초기화 / 템플릿 이용(JSP,React) / js:페이지 전환 시 초기화, 세션, 쿠키]
+function getview(bno){
+    //1. 클릭한 게시물번호 저장
+    sessionStorage.setItem("bno",bno)
+    //2. 페이지 전환
+    location.href = '/board/view'
 }
 
 getloginMno()
