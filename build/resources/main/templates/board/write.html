@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>글 쓰기 페이지</h1>
+    <form>
+        제목 : <input type="text" class="btitle"><br>
+        내용 : <textarea type="text" class="bcontent"></textarea><br>
+        첨부파일 : <input type="file" class="bfile"><br>
+        카테고리 :
+        <select>
+            <option name="category">카테고리 선택</option>
+            <option name="category">카테고리 1</option>
+            <option name="category">카테고리 2</option>
+        </select><br>
+        <button type="submit" onclick="setboard()">등록</button>
+    </form>
+    <a href="/board/list">목록보기</a>
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/js/board/write.js"></script>
+</body>
+</html>
