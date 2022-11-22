@@ -1,7 +1,9 @@
 package com.Ezenweb.service;
 
+import com.Ezenweb.domain.dto.BoardDto;
 import com.Ezenweb.domain.dto.VcategoryDto;
 import com.Ezenweb.domain.dto.VisitlogDto;
+import com.Ezenweb.domain.entity.board.BoardEntity;
 import com.Ezenweb.domain.entity.vcategory.VcategoryEntity;
 import com.Ezenweb.domain.entity.vcategory.VcategoryRepository;
 import com.Ezenweb.domain.entity.visitlog.VisitlogEntity;
@@ -67,5 +69,33 @@ public class VisitlogService {
             visitlogDtoList.add(entity.toDto());
         }
         return visitlogDtoList;
+    }
+
+    //6. 방명록 수정을 위한 방명록 불러오기
+    public VisitlogDto viewvisitlog(int vno){
+        VisitlogDto vcDto = visitlogRepository.findById(vno).get().toDto();
+        return vcDto;
+    }
+
+    @Transactional
+    //7. 방명록 수정
+    public boolean updatevisitlog(VisitlogDto visitlogDto){
+        Optional<VisitlogEntity> optional = visitlogRepository.findById(visitlogDto.getVno());
+        if(optional.isPresent()){
+            VisitlogEntity entity = optional.get();
+            entity.setVwriter(visitlogDto.getVwriter());
+            entity.setVcontent(visitlogDto.getVcontent());
+            return true;
+        }else return false;
+    }
+
+    //8. 방명록 삭제
+    public boolean deletevisitlog(int vno){
+        Optional<VisitlogEntity> optional = visitlogRepository.findById(vno);
+        if(optional.isPresent()){
+            VisitlogEntity entity = optional.get();
+            visitlogRepository.delete(entity);
+            return true;
+        }else return false;
     }
 }
