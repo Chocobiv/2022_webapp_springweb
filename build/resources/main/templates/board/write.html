@@ -6,15 +6,16 @@
 </head>
 <body>
     <h1>글 쓰기 페이지</h1>
-    <form>
+
         <input type="text" class="bcname">
         <button type="button" onclick="setbcategory()">카테고리 추가</button>
         <span class="categorybox"></span>
 
         <br>
-        제목 : <input type="text" class="btitle" style="width: 220px;"><br>
-        내용 : <textarea type="text" class="bcontent" style="width: 220px; vertical-align: top; height: 150px;"></textarea><br>
-        첨부파일 : <input type="file" class="bfile"><br>
+    <form class="boardform">
+        제목 : <input type="text" name="btitle" style="width: 220px;"><br>
+        내용 : <textarea type="text" name="bcontent" style="width: 220px; vertical-align: top; height: 150px;"></textarea><br>
+        첨부파일 : <input type="file" name="bfile"><br>
         <button type="submit" onclick="setboard()">등록</button>
     </form>
     <a href="/board/list">목록보기</a>

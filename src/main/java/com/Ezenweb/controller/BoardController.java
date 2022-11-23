@@ -36,9 +36,17 @@ public class BoardController {
     public Resource getupdate(){ return new ClassPathResource("templates/board/update.html"); }
 
     // --------------------- 3. 요청과 응답 처리 [model] --------------------- //
-    //1. 게시물 쓰기
-    @PostMapping("/setboard")
+    //1. 게시물 쓰기 [첨부파일 없을 때]
+    /*@PostMapping("/setboard")
     public boolean setboard(@RequestBody BoardDto boardDto){
+        System.out.printf("확인 : "+boardDto.toString());
+        return boardService.setboard(boardDto);
+    }*/
+
+    //1. 게시물 쓰기 [첨부파일 있을 때]
+    @PostMapping("/setboard")
+    public boolean setboard(BoardDto boardDto){
+        System.out.printf("확인 : "+boardDto.toString());
         return boardService.setboard(boardDto);
     }
     //2. 게시물 목록 조회 [페이징,검색]
@@ -75,5 +83,11 @@ public class BoardController {
     @GetMapping("/bcategorylist")
     public List<BcategoryDto> bcategorylist(){
         return boardService.bcategorylist();
+    }
+
+    //8. 첨부파일 다운로드
+    @GetMapping("/filedownload")
+    public void filedownload(@RequestParam("filename") String filename){
+        boardService.filedownload(filename);
     }
 }
