@@ -62,8 +62,8 @@ public class BoardController {
     }
 
     //4. 게시물 삭제
-    @GetMapping("/delboard")
-    public boolean delboard(@RequestParam("bno") int bno){
+    @DeleteMapping("/delboard")
+    public boolean delboard(int bno){
         return boardService.delboard(bno);
     }
 

@@ -6,16 +6,14 @@
 </head>
 <body>
     <h1>글 수정 페이지</h1>
-    <form>
-        제목 : <input type="text" class="btitle"><br>
-        내용 : <textarea type="text" class="bcontent"></textarea><br>
-        첨부파일 : <input type="file" class="bfile"><br>
-        카테고리 :
-        <select>
-            <option name="category">카테고리 선택</option>
-            <option name="category">카테고리 1</option>
-            <option name="category">카테고리 2</option>
-        </select><br>
+    카테고리 :
+    <select id="bcategorySelect">
+
+    </select><br>
+    <form class="updateform">
+        제목 : <input type="text" class="btitle" name="btitle"><br>
+        내용 : <textarea type="text" class="bcontent" name="bcontent"></textarea><br>
+        첨부파일 : <input type="file" class="bfile" name="bfile"><br>
         <button type="submit" onclick="upboard()">수정</button>
     </form>
     <a href="/board/list">목록보기</a>

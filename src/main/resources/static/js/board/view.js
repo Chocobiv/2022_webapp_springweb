@@ -11,7 +11,8 @@ function getboard(){
         type: 'get',
         success: function(re) {
             console.log(re);
-            let html = '제목 : '+re.btitle+'<Br>작성자 : '+re.memail+'<br>내용 : '+re.bcontent+'<br>첨부파일 : '+re.bfilename+'<br>조회수 : '+re.bview
+            var word3 = re.bfilename.substring(re.bfilename.lastIndexOf('_') + 1);
+            let html = '제목 : '+re.btitle+'<Br>작성자 : '+re.memail+'<br>내용 : '+re.bcontent+'<br>첨부파일 : <a href="/board/filedownload?filename='+re.bfilename+'">'+word3+'</a><br>조회수 : '+re.bview
             document.querySelector('.viewbox').innerHTML = html
         }
     })
