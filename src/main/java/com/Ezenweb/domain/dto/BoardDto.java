@@ -15,7 +15,8 @@ public class BoardDto {
     private String bcontent;    //게시물 내용
     //작성일, 수정일 -> 상속 (여러 엔티티에서 사용되는 필드라서)
     private int bview;          //조회수
-    private MultipartFile bfile;       //첨부파일
+    private MultipartFile bfile;//첨부파일 [업로드용]
+    private String bfilename;   //첨부파일 [출력용]
 
     private int mno;            //작성자 회원번호
     private int bcno;           //카테고리 [카테고리-fk]

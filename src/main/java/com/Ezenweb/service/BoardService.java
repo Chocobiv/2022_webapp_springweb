@@ -76,6 +76,33 @@ public class BoardService {
         }catch(Exception e){ System.out.println(e); }
     }
 
+    // ** 첨부파일 업로드 [1.쓰기메소드 2.수정메소드 에서 사용 => 재사용성] **
+    public boolean fileuplooad(BoardDto boardDto,BoardEntity boardEntity){
+        if(boardDto.getBfile() != null) {   // ** 첨부파일 있을 때
+            // ----- 업로드된 파일의 이름 [문제점 : 파일명 중복] ----- //
+            //1. pk + 파일명 [게시판테이블, 첨부파일테이블]
+            //2. uuid[범용고유식별자] 클래스 + 파일명
+            String uuid = UUID.randomUUID().toString();   //1. 난수생성
+            //실제 유저가 업로드한 파일의 확장자가 깨질 수 있으므로 uuid를 앞에다 쓰기
+            String filename = uuid + "_" + boardDto.getBfile().getOriginalFilename();  //2. 난수+파일명
+            //3. 업로드 날짜/시간 + 파일명
+            //4. 중복된 파일명 중 최근파일명 뒤에 파일명 + (중복수+1)
+
+
+            // ----- 첨부파일명 DB에 등록 ----- //
+            boardEntity.setBfile(filename);     //해당 파일명을 엔티티에 저장 //3. 난수+파일명을 엔티티에 저장
+
+            // ----- 첨부파일 업로드 ----- //    저장할 경로 [전역변수]
+            try {
+                File uploadfile = new File(path + filename);    //4. 경로+파일명 [객체화]
+                boardDto.getBfile().transferTo(uploadfile); //5. 해당 객체 경로로 업로드
+            } catch (Exception e) {
+                System.out.printf(" 첨부파일 업로드 실패");
+            }
+            return true;
+        }else return false;
+    }
+
     //1. 게시물 쓰기
     @Transactional
     public boolean setboard(BoardDto boardDto){
@@ -91,28 +118,8 @@ public class BoardService {
         BoardEntity boardEntity = boardRepository.save(boardDto.toEntity()); //1. dto -> entity [INSERT] 저장된 entity 반환
         if (boardEntity.getBno() != 0) {//2. 생성된 entity의 게시물번호가 0이 아니면 성공
 
-            if(boardDto.getBfile() != null) {   // ** 첨부파일 있을 때
-                // ----- 업로드된 파일의 이름 [문제점 : 파일명 중복] ----- //
-                //1. pk + 파일명 [게시판테이블, 첨부파일테이블]
-                //2. uuid[범용고유식별자] 클래스 + 파일명
-                String uuid = UUID.randomUUID().toString();   //1. 난수생성
-                //실제 유저가 업로드한 파일의 확장자가 깨질 수 있으므로 uuid를 앞에다 쓰기
-                String filename = uuid + "_" + boardDto.getBfile().getOriginalFilename();  //2. 난수+파일명
-                //3. 업로드 날짜/시간 + 파일명
-                //4. 중복된 파일명 중 최근파일명 뒤에 파일명 + (중복수+1)
-
-
-                // ----- 첨부파일명 DB에 등록 ----- //
-                boardEntity.setBfile(filename);     //해당 파일명을 엔티티에 저장 //3. 난수+파일명을 엔티티에 저장
-
-                // ----- 첨부파일 업로드 ----- //    저장할 경로 [전역변수]
-                try {
-                    File uploadfile = new File(path + filename);    //4. 경로+파일명 [객체화]
-                    boardDto.getBfile().transferTo(uploadfile); //5. 해당 객체 경로로 업로드
-                } catch (Exception e) {
-                    System.out.printf(" 첨부파일 업로드 실패");
-                }
-            }
+            //첨부파일 업로드 함수 호출
+            fileuplooad(boardDto, boardEntity);
 
             //1. 회원 <--> 게시물 연관관계 대입 [양방향]
             boardEntity.setMemberEntity(memberEntity);     // *** 5. fk 대입 [Board에 Member 넣고]  //set했기때문에 @Transactional 꼭 필요
@@ -153,24 +160,42 @@ public class BoardService {
 
     //4. 게시물 삭제
     @Transactional
-    public boolean delboard(@RequestParam("bno") int bno){
+    public boolean delboard(int bno){
         Optional<BoardEntity> optional = boardRepository.findById(bno);
         if(optional != null && optional.isPresent()){
-            BoardEntity entity = optional.get();
-            boardRepository.delete(entity);     //찾은 엔티티 삭제
+            BoardEntity boardEntity = optional.get();
+
+            //첨부파일 같이 삭제
+            if(boardEntity.getBfile() != null) {//기존 첨부파일 있을 때
+                File file = new File(path + boardEntity.getBfile());//기존 첨부파일 객체화
+                if (file.exists()) file.delete();   //존재하면 파일 삭제
+            }
+
+            boardRepository.delete(boardEntity);     //찾은 엔티티 삭제
             return true;
         }
         return false;
     }
 
-    //5. 게시물 수정 [첨부파일]
+    //5. 게시물 수정 [첨부파일 1.첨부파일o->첨부파일변경   2.첨부파일x->첨부파일추가]
     @Transactional
     public boolean upboard(@RequestBody BoardDto boardDto){
         Optional<BoardEntity> optional = boardRepository.findById(boardDto.getBno());
         if(optional.isPresent()) {
-            BoardEntity entity = optional.get();
-            entity.setBtitle(boardDto.getBtitle());
-            entity.setBcontent(boardDto.getBcontent());
+            BoardEntity boardEntity = optional.get();
+
+            //1. 수정할 첨부파일이 있을 때 -> 기존 첨부파일 삭제 -> 새로운 첨부파일 업로드, DB수정
+            if(boardDto.getBfile() != null){//boardDto : 수정할 정보     boardEntity : 원본[DB테이블]
+                if(boardEntity.getBfile() != null) {//기존 첨부파일 있을 때
+                    File file = new File(path + boardEntity.getBfile());//기존 첨부파일 객체화
+                    if (file.exists()) file.delete();   //존재하면 파일 삭제
+                }
+                fileuplooad(boardDto,boardEntity);  //첨부파일 업로드 함수 호출
+            }
+
+            //수정처리 [메소드 별도 존재x / 엔티티 객체 <-매핑-> 레코드 / 엔티티 객체 필드를 수정 : @Transactional]
+            boardEntity.setBtitle(boardDto.getBtitle());
+            boardEntity.setBcontent(boardDto.getBcontent());
             return true;
         }else return false;
     }

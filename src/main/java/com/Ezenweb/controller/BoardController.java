@@ -69,7 +69,7 @@ public class BoardController {
 
     //5. 게시물 수정 [첨부파일]
     @PutMapping("/upboard")
-    public boolean upboard(@RequestBody BoardDto boardDto){
+    public boolean upboard(BoardDto boardDto){
         return boardService.upboard(boardDto);
     }
 
