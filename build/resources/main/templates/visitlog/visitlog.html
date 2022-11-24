@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>방명록 페이지</h1>
+    <h3>방명록 쓰기</h3>
+    <span class="categorybox"></span>
+
+    <input type="text" class="vcname">
+    <button type="button" onclick="setvcategory()">카테고리 추가</button>
+    <br>
+  <form class="visitlogdata">
+    작성자 : <input type="text" name="vwriter" style="width: 220px;"><br>
+    내용 : <textarea type="text" name="vcontent" style="width: 220px; vertical-align: top; height: 150px;"></textarea><br>
+    첨부파일 : <input type="file" name="vfile"><br>
+    <button type="submit" onclick="setvisitlog()">등록</button>
+  </form>
+
+  <br><hr><br>
+
+  <h1>방명록 목록</h1>
+  <div class="vcategorybox"></div>
+
+  <table class="vtable">
+  </table>
+
+  <br><hr><br>
+
+  <div class="updatebox">
+  </div>
+
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="/js/visitlog/visitlog.js"></script>
+</body>
+</html>
