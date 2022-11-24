@@ -46,7 +46,7 @@ public class BoardController {
     //1. 게시물 쓰기 [첨부파일 있을 때]
     @PostMapping("/setboard")
     public boolean setboard(BoardDto boardDto){
-        System.out.printf("확인 : "+boardDto.toString());
+        System.out.println("확인 : "+boardDto.toString());
         return boardService.setboard(boardDto);
     }
     //2. 게시물 목록 조회 [페이징,검색]

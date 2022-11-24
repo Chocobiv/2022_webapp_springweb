@@ -16,6 +16,7 @@ public class VisitlogEntity {
     private int vno;            //방명록 번호
     private String vcontent;    //방명록 내용
     private String vwriter;     //방명록 작성자
+    private String vfile;       //첨부파일
 
     @ManyToOne
     @JoinColumn(name = "vcno")

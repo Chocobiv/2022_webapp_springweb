@@ -22,6 +22,7 @@ function setvcategory(){
     let data = {
         vcname: document.querySelector('.vcname').value
     }
+    console.log(data.vcname)
     $.ajax({
         url: '/visitlog/setvcategory',
         data: JSON.stringify(data),
@@ -40,22 +41,21 @@ function setvcategory(){
 //3. 카테고리 변경
 function vcnochange(cno){
     vcno = cno
+    alert(vcno)
 }
 
 //4. 방명록 등록
 function setvisitlog(){
-    let data = {
-        vcontent: document.querySelector('.vcontent').value,
-        vwriter: document.querySelector('.vwriter').value,
-        vcno: vcno
-    }
+    let visitlogdata = document.querySelector(".visitlogdata")
+    let formdata = new FormData(visitlogdata)
+    formdata.set("vcno", vcno)
     $.ajax({
         url: '/visitlog/setvisitlog',
-        data: JSON.stringify(data),
-        contentType: 'application/json',
+        data: formdata,
         type: 'POST',
+        processData: false,
+        contentType: false,
         success: function(re){
-
             if(re == true){
                 alert('글작성 성공')
             }else alert(re)

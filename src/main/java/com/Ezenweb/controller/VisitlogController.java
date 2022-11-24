@@ -35,7 +35,8 @@ public class VisitlogController {
 
     //4. 방명록 등록
     @PostMapping("/setvisitlog")
-    public boolean setvisitlog(@RequestBody VisitlogDto visitlogDto){
+    public boolean setvisitlog(VisitlogDto visitlogDto){
+        System.out.printf("확인 : "+visitlogDto.toString());
         return visitlogService.setvisitlog(visitlogDto);
     }
 
@@ -60,4 +61,8 @@ public class VisitlogController {
     public boolean deletevisitlog(@RequestParam("vno") int vno){
         return visitlogService.deletevisitlog(vno);
     }
+
+    //9. 첨부파일 다운로드
+    @GetMapping("/filedownload")
+    public void filedownload(@RequestParam("filename") String filename){ visitlogService.filedownload(filename); }
 }

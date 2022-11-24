@@ -108,7 +108,7 @@ public class BoardService {
                 // ----- 첨부파일 업로드 ----- //    저장할 경로 [전역변수]
                 try {
                     File uploadfile = new File(path + filename);    //4. 경로+파일명 [객체화]
-                    boardDto.getBfile().transferTo(uploadfile);             //5. 해당 객체 경로로 업로드
+                    boardDto.getBfile().transferTo(uploadfile); //5. 해당 객체 경로로 업로드
                 } catch (Exception e) {
                     System.out.printf(" 첨부파일 업로드 실패");
                 }

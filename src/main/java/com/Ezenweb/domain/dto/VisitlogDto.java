@@ -2,6 +2,7 @@ package com.Ezenweb.domain.dto;
 
 import com.Ezenweb.domain.entity.visitlog.VisitlogEntity;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter @ToString @Builder
@@ -9,7 +10,7 @@ public class VisitlogDto {
     private int vno;            //방명록 번호
     private String vcontent;    //방명록 내용
     private String vwriter;     //방명록 작성자
-
+    private MultipartFile vfile;//첨부파일
     private int vcno;           //카테고리 번호 [FK]
 
     public VisitlogEntity toEntity(){
