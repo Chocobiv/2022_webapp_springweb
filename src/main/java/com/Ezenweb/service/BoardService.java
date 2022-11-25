@@ -136,24 +136,27 @@ public class BoardService {
 
     //2. 게시물 목록 조회
     @Transactional
-    public List<BoardDto> boardlist(int bcno, int page){
-        Page<BoardEntity> entitylist = null;
+    public List<BoardDto> boardlist(int bcno, int page, String key, String keyword){
+        Page<BoardEntity> entitylist = null;    //페이징 처리된 엔티티 리스트 객체 선언
 
         //1. Pageable 인터페이스
         //2. PageRequest 구현클래스
         //2-1. PageRequest.of(현재페이지번호, 표시할레코드수)
-        Pageable pageable = PageRequest.of(page-1, 3);//페이징 설정 //0페이지부터 시작해서 page-1
+        Pageable pageable = PageRequest.of(page-1, 3, Sort.by(Sort.Direction.DESC, "bno"));//페이징 설정 //0페이지부터 시작해서 page-1
 
-        if(bcno == 0) { entitylist = boardRepository.findAll(pageable); }//카테고리번호가 0이면 전체보기
-        else{   //카테고리번호가 0이 아니면 선택된 카테고리별 보기
-            /* 페이징 처리 전
-            BcategoryEntity bcEntity  = bcategoryRepository.findById(bcno).get();
-            entitylist = bcEntity.getBoardEntityList();  //해당 엔티티의 게시물 목록*/
-            entitylist = boardRepository.findByBcno(bcno, pageable);
 
+        //검색여부 / 카테고리 판단
+        if(key.equals("btitle")){           //검색필드가 제목이면
+            //조건1. 제목 검색        조건2. 카테고리
+            entitylist = boardRepository.findByBtitle(bcno,keyword,pageable);
+        }else if(key.equals("bcontent")) {  //검색필드가 내용이면
+            //조건1. 제목 검색        조건2. 카테고리
+            entitylist = boardRepository.findByBcontent(bcno,keyword,pageable);
+        }else{                              //검색이 없으면
+            //조건1. 카테고리
+            if(bcno == 0){entitylist = boardRepository.findAll(pageable);}
+            else entitylist = boardRepository.findByBcno(bcno,pageable);
         }
-        System.out.println("전체 페이지수) "+entitylist.getTotalPages());
-        System.out.println("전체 게시물수) "+entitylist.getTotalElements());
 
         List<BoardDto> boardDtoList = new ArrayList<>();//controller에게 전달할 때 형변환 [entity->dto] : 왜? 역할이 달라서
         for(BoardEntity entity : entitylist){
