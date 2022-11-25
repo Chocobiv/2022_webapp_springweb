@@ -21,10 +21,7 @@ import javax.transaction.Transactional;
 
 import java.io.*;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service        //service라는걸 알려주기 위한 어노테이션 / 컴포넌트 [Spring MVC]
 public class BoardService {
@@ -158,10 +155,30 @@ public class BoardService {
             else entitylist = boardRepository.findByBcno(bcno,pageable);
         }
 
+        //프론트엔드에 표시할 페이징번호버튼 수
+        int btncount = 5;                               //1. 페이지에 표시할 총 페이지 버튼 개수 [1~5페이지 버튼 보이게]
+        int startbtn = (page/btncount) * btncount + 1;  //2. 시작번호 버튼
+        int endbtn = startbtn + btncount - 1;           //3. 마지막번호 버튼
+        if(endbtn > entitylist.getTotalPages()) endbtn = entitylist.getTotalPages();    //만약에 마지막 페이지 수가 전체 페이지 수보다 크면 마지막 페이지 수를 전체 페이지 수로 함
+
+        // * 검색페이징된
+        System.out.println(" 엔티티 수) "+entitylist);
+        System.out.println(" 총엔티티 수) "+entitylist.getTotalElements());
+        System.out.println(" 총페이지 수) "+entitylist.getTotalPages());
+        System.out.println(" 현재 페이지 수) "+entitylist.getNumber());
+        System.out.println(" 현재 엔티티들 객체 정보) "+entitylist.getContent());
+        System.out.println(" 현재 페이지의 게시물 수) "+entitylist.getNumberOfElements());
+        System.out.println(" 현재 페이지가 첫페이지인지 여부 확인) "+entitylist.isFirst());     //이전 페이지 처리때문에 필요
+        System.out.println(" 현재 페이지가 마지막페이지인지 여부 확인) "+entitylist.isLast());   //다음 페이지 처리때문에 필요
+
         List<BoardDto> boardDtoList = new ArrayList<>();//controller에게 전달할 때 형변환 [entity->dto] : 왜? 역할이 달라서
         for(BoardEntity entity : entitylist){
             boardDtoList.add(entity.toDto());
         }
+
+        boardDtoList.get(0).setStartbtn(startbtn);
+        boardDtoList.get(0).setEndbtn(endbtn);
+
         return boardDtoList;
     }
 
