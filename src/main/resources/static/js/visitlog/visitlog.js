@@ -58,6 +58,7 @@ function setvisitlog(){
         success: function(re){
             if(re == true){
                 alert('글작성 성공')
+                boardlist()
             }else alert(re)
         }
     })
