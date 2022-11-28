@@ -57,7 +57,7 @@ public class MemberService {
         return entity.getMno();     //들어간 데이터의 PK 값인 mno를 반환
     }
 
-    //2. 로그인
+    /*//2. 로그인 [시큐리티 사용시 필요없음]
     @Transactional
     public int getmember(MemberDto memberDto) {
         //1. DAO 처리 [select]
@@ -76,7 +76,7 @@ public class MemberService {
             }
         }
         return 0;               //로그인 실패
-    }
+    }*/
 
     //3. 비밀번호 찾기
     @Transactional

@@ -53,11 +53,11 @@ public class MemberController {
         return result;
     }
 
-    @PostMapping("/getmember")      //2. 로그인 기능
+/*    @PostMapping("/getmember")      //2. 로그인 기능 [시큐리티 사용시 필요없음]
     public int getmember(@RequestBody MemberDto memberDto){
         int result = memberService.getmember(memberDto);
         return result;
-    }
+    }*/
 
     @GetMapping("/getpassword")     //3. 비밀번호찾기
     public String getpassword(@RequestParam("memail") String memail){
