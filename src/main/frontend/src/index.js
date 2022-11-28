@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import Library from "./chapter3/Library";
 import Clock from "./chapter4/Clock";
 import CommentList from "./chapter5/CommentList";
+import Signup from "./component/member/Signup";
 
 
 // 2. DOM 컨테이너 뿌릴 위치 [public-index.html 안에 있는 태그]
@@ -39,12 +40,17 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 }, 1000)*/
 
 //4. [CommentList 컴포넌트를 root에 렌더링]
-root.render(
+/*root.render(
     <React.StrictMode>
         <CommentList />
     </React.StrictMode>
-);
+);*/
 
+root.render(
+    <React.StrictMode>
+        <Signup />
+    </React.StrictMode>
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

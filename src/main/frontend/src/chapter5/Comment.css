@@ -9,14 +9,14 @@
 }
 .imgContainer{  }
 .image{
-    width: 50px;            /* 가로길이 */
-    height: 50px;           /* 세로길이 */
-    border-radius: 25px;    /* 둥근모서리 */
+    width: 50px;                /* 가로길이 */
+    height: 50px;               /* 세로길이 */
+    border-radius: 25px;        /* 둥근모서리 */
 }
 .contentContainer{
     margin-left: 8px;
     display: flex;
-    flex-direction: column; /* column : 새로배치 */
+    flex-direction: column;     /* column : 새로배치 */
     justify-content: center;
 }
 .nameText{
