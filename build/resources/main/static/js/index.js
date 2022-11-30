@@ -5,9 +5,9 @@ function getloginMno(){
         type: 'get',
         success: function(re){
             let html = '';
-            if(re == '0'){  //로그인 안했다
+            if(re == ''){  //로그인 안했다
                 html += '<button type="button" onclick="signup()">회원가입</button>'+
-                        '<button type="button" onclick="login()">로그인</button>'
+                        '<a href="/member/login"></ㅁ><button type="button">로그인</button></a>'
             }else{  //로그인 했다
                 html += '<button type="button" onclick="logout()" class="btnlogout">로그아웃</button>'+
                          '<button type="button" onclick="findpassword()" class="btnfindpassword">비밀번호찾기</button>'+
