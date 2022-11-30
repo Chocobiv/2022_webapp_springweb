@@ -30,6 +30,9 @@ public class MemberEntity extends BaseEntity {
     @Builder.Default        //빌더 사용시 해당 필드의 초기값 설정 [값을 안넣으면 그냥 깡통 들어감]
     private List<BoardEntity> boardEntityList = new ArrayList<>();
 
+    @Column
+    private String mrol;            //회원 등급 필드
+
 
     //2. 생성자 [lombok]
     //3. method [lombok]
