@@ -15,6 +15,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
@@ -23,7 +27,10 @@ import javax.transaction.Transactional;
 import java.util.*;
 
 @Service            //해당 클래스가 Service 컴포넌트임을 명시     //1. 비즈니스 로직 [알고리즘 - 기능]
-public class MemberService implements UserDetailsService {
+public class MemberService implements UserDetailsService, OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+    //UserDetailsService : 일반회원
+    //OAuth2UserService<OAuth2UserRequest, OAuth2User> : 소셜회원
+
     // ------------------------ 전역 객체 ------------------------------
     @Autowired
     private MemberRepository memberRepository;  //리포지토리 객체
@@ -183,11 +190,12 @@ public class MemberService implements UserDetailsService {
         //2. 인증된 토큰 내용 확인
         Object principal = authentication.getPrincipal();//Principal : 접근주체 [UserDetails(MemberDto)]
         System.out.println("토큰 내용 확인) "+principal);
-        if(principal.equals("anonymousUser")){//로그인 전 이름과 같으면
+        if(principal.equals("anonymousUser")){  //anonymousUser이면 로그인 전
             return null;
-        }else{//로그인 후
+        }else{                                  //anonymousUser 아니면 로그인 후
             MemberDto memberDto = (MemberDto) principal;
-            return memberDto.getMemail()+memberDto.getAuthorities();
+            //return memberDto.getMemail()+"_"+memberDto.getAuthorities();  //이런 식으로 _를 구분자로 쓰고 붙여서 반환할 수도 있다
+            return memberDto.getMemail();
         }
     }
 
@@ -240,5 +248,12 @@ public class MemberService implements UserDetailsService {
             mimeMessageHelper.setText(content, true);  //6. 메일 내용   //true: html 형식 지원
             javaMailSender.send(message);           //7. 메일 전송
         }catch (Exception e){ System.out.println("메일전송 실패) "+e); }
+    }
+
+    //로그인을 성공한 소셜 회원 정보를 받는 메소드
+    @Override
+    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+
+        return null;
     }
 }

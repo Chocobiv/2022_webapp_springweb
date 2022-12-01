@@ -16,7 +16,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private MemberService memberService;
     @Override // 인증(로그인) 관련 메소드 재정의
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService( memberService ).passwordEncoder( new BCryptPasswordEncoder() );
+        auth.userDetailsService( memberService ).passwordEncoder( new BCryptPasswordEncoder() );    //인증은 여기서 하겠다 지정
     }
 
     @Override   //재정의 [상속받은 클래스로부터 메소드 재구현]
@@ -31,13 +31,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .passwordParameter("mpassword") //비밀번호 변수명 [DTO]
             .and()                  //기능 구분용
                 .logout()           //로그아웃 보안 설정
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))//로그아웃 처리 URL 정의
-                    .logoutSuccessUrl("/") //로그아웃 성공했을 때 이동할 URL
-                    .invalidateHttpSession(true)//세션 초기화
+                .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))//로그아웃 처리 URL 정의
+                .logoutSuccessUrl("/") //로그아웃 성공했을 때 이동할 URL
+                .invalidateHttpSession(true)//세션 초기화
             .and()                          //기능 구분용
                 .csrf()                         //요청 위조 방지
-                    .ignoringAntMatchers("/member/getmember")   //로그인 post 사용 //해당 URL은 요청 방지 해지하겠다
-                    .ignoringAntMatchers("/member/setmember");  //회원가입 post 사용
+                .ignoringAntMatchers("/member/getmember")   //로그인 post 사용 //해당 URL은 요청 방지 해지하겠다
+                .ignoringAntMatchers("/member/setmember")  //회원가입 post 사용
+            .and()
+                .oauth2Login()      //소셜 로그인 보안 설정
+                .userInfoEndpoint() //Endpoint(종착점) : 소셜 회원정보가 들어오는 곳
+                .userService(memberService);     //해당 서비스에 구현하겠다
     }
 }
 
