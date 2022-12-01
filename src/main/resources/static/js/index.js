@@ -4,6 +4,7 @@ function getloginMno(){
         url: '/member/getloginMno',
         type: 'get',
         success: function(re){
+            alert(re)
             let html = '';
             if(re == ''){  //로그인 안했다
                 html += '<button type="button" onclick="signup()">회원가입</button>'+
