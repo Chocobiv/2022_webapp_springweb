@@ -258,10 +258,9 @@ public class MemberService implements UserDetailsService, OAuth2UserService<OAut
         //1. 인증[로그인] 결과 정보 요청
         OAuth2UserService oAuth2UserService = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = oAuth2UserService.loadUser(userRequest);
-        //System.out.println("1. oAuth2User) "+oAuth2User.toString());
+
         //2. oauth2 클라이언트 식별 [카카오 vs 네이버 vs 구글]
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
-        //System.out.println("2. oauth2 회사명" + registrationId);
 
         //3. 회원정보 담는 객체명 [JSON형태]
         String oauth2UserInfo = userRequest
@@ -269,8 +268,7 @@ public class MemberService implements UserDetailsService, OAuth2UserService<OAut
                 .getProviderDetails()
                 .getUserInfoEndpoint()
                 .getUserNameAttributeName();
-        //System.out.println("3. 회원정보 담긴 객체 : "+oauth2UserInfo);
-        //System.out.println("인증 결과)"+oAuth2User.getAttributes());
+
         //4. DTO 처리
         OauthDto oauthDto = OauthDto.of(registrationId, oauth2UserInfo, oAuth2User.getAttributes());//oAuth2User.getAttributes(): 요청 정보 원본
 

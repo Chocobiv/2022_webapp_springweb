@@ -2,6 +2,7 @@ package com.Ezenweb.domain.dto;
 
 import lombok.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @NoArgsConstructor @AllArgsConstructor @Getter @Setter @ToString @Builder
@@ -38,12 +39,25 @@ public class OauthDto {
     }
     //2. 네이버 객체 생성 메소드
     public static OauthDto ofNaver(String registrationId,String oauth2UserInfo,Map<String,Object> attributes){
+        System.out.println("naver attributes) "+attributes);
+        Map<String,Object> response = (Map<String, Object>) attributes.get(oauth2UserInfo);
 
-        return null;
+        return OauthDto.builder()
+                .memail((String) response.get("email"))
+                .mname((String) response.get("nickname"))
+                .registrationId(registrationId)
+                .attributes(attributes)
+                .build();
     }
     //3. 구글 객체 생성 메소드
     public static OauthDto ofGoogle(String registrationId,String oauth2UserInfo,Map<String,Object> attributes){
+        System.out.println("google attributes) "+attributes);
 
-        return null;
+        return OauthDto.builder()
+                .memail((String) attributes.get("email"))
+                .mname((String) attributes.get("name"))
+                .registrationId(registrationId)
+                .attributes(attributes)
+                .build();
     }
 }
