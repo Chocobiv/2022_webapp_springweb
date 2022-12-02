@@ -276,11 +276,17 @@ public class MemberService implements UserDetailsService, OAuth2UserService<OAut
         // *. DB 처리
         //1. 이메일로 엔티티 검색 [기존 회원인지 아닌지 확인하기 위해서]
         Optional<MemberEntity> optional = memberRepository.findByMemail(oauthDto.getMemail());
+        //Optional<MemberEntity> optional = memberRepository.findByMemailAndMrol(oauthDto.getMemail());
 
         MemberEntity memberEntity = null;
         if(optional.isPresent()) {  //만약에 기존회원이면
-            memberEntity = optional.get();
-        }else{                      //기존회원이 아니면
+            //이메일이 존재하면서 소셜 클라이언트도 동일하면
+            //if (optional.get().getMrol().equals(registrationId)) {
+                memberEntity = optional.get();
+            //}else{//이메일은 같지만 소셜 클라이언트는 다르면
+            //    memberEntity = memberRepository.save(oauthDto.toEntity());
+            //}
+        }else{                      //기존회원이 아니면 [회원가입]
             memberEntity = memberRepository.save(oauthDto.toEntity());
         }
         //memberRepository.findByMemail(oauthDto.getMemail()).orElseThrow( ()->{ });
