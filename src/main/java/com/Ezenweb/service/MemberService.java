@@ -186,7 +186,7 @@ public class MemberService implements UserDetailsService, OAuth2UserService<OAut
         else{ return 0; }
     }*/
     //6. 로그인 여부 판단 메소드 [principal session]
-    public String getloginMno(){
+    public String getloginMno(){        //principal : 접근주체(로그인한 사용자)
         //1. 인증된 토큰 확인
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //2. 인증된 토큰 내용 확인
@@ -272,15 +272,26 @@ public class MemberService implements UserDetailsService, OAuth2UserService<OAut
         //4. DTO 처리
         OauthDto oauthDto = OauthDto.of(registrationId, oauth2UserInfo, oAuth2User.getAttributes());//oAuth2User.getAttributes(): 요청 정보 원본
 
-        //. DB 처리
+
+        // *. DB 처리
+        //1. 이메일로 엔티티 검색 [기존 회원인지 아닌지 확인하기 위해서]
+        Optional<MemberEntity> optional = memberRepository.findByMemail(oauthDto.getMemail());
+
+        MemberEntity memberEntity = null;
+        if(optional.isPresent()) {  //만약에 기존회원이면
+            memberEntity = optional.get();
+        }else{                      //기존회원이 아니면
+            memberEntity = memberRepository.save(oauthDto.toEntity());
+        }
+        //memberRepository.findByMemail(oauthDto.getMemail()).orElseThrow( ()->{ });
 
         //권한 부여
         Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority("kakaoUser"));
+        authorities.add(new SimpleGrantedAuthority(memberEntity.getMrol()));
 
         //5. 반환 MemberDto [일반회원 vs. oauth : 통합회원]
         MemberDto memberDto = new MemberDto();
-        memberDto.setMemail(oauthDto.getMemail());
+        memberDto.setMemail(memberEntity.getMemail());
         memberDto.setAuthorities(authorities);
         memberDto.setAttributes(oauthDto.getAttributes());
         return memberDto;

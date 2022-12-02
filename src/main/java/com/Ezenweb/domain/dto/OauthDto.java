@@ -1,5 +1,6 @@
 package com.Ezenweb.domain.dto;
 
+import com.Ezenweb.domain.entity.member.MemberEntity;
 import lombok.*;
 
 import java.util.HashMap;
@@ -58,6 +59,14 @@ public class OauthDto {
                 .mname((String) attributes.get("name"))
                 .registrationId(registrationId)
                 .attributes(attributes)
+                .build();
+    }
+
+    //4. DTO -> Entity
+    public MemberEntity toEntity() {
+        return MemberEntity.builder()
+                .memail(this.memail)
+                .mrol(this.registrationId)
                 .build();
     }
 }

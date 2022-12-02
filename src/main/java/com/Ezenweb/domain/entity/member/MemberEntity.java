@@ -20,10 +20,9 @@ public class MemberEntity extends BaseEntity {
     private int mno;                //회원번호 필드
     @Column( nullable = false )     //not null
     private String memail;          //회원이메일 = 회원아이디 필드
-    @Column( nullable = false )     //not null
+    @Column
     private String mpassword;       //회원비밀번호 필드
-
-    @Column( nullable = false )     //not null
+    @Column
     private String mphone;          //회원전화번호 필드
 
     @OneToMany(mappedBy = "memberEntity")  //[1:n] PK에 사용하는 어노테이션   mappedBy="fk필드명"
