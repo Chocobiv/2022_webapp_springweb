@@ -4,12 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-// 1. 사용할 컴포넌트 호출 [import 컴포넌트명 from 위치]
-import Library from "./chapter3/Library";
-import Clock from "./chapter4/Clock";
-import CommentList from "./chapter5/CommentList";
-import Signup from "./component/member/Signup";
 
+// 1. 사용할 컴포넌트 호출 [import 컴포넌트명 from 위치]
+import Library from "./Book/chapter3/Library";
+import Clock from "./Book/chapter4/Clock";
+import CommentList from "./Book/chapter5/CommentList";
+import Signup from "./component/member/Signup";
+import Index from './component/Index'
 
 // 2. DOM 컨테이너 뿌릴 위치 [public-index.html 안에 있는 태그]
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -46,9 +47,14 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
     </React.StrictMode>
 );*/
 
-root.render(
+/*root.render(
     <React.StrictMode>
         <Signup />
+    </React.StrictMode>
+);*/
+root.render(
+    <React.StrictMode>
+        <Index />
     </React.StrictMode>
 );
 
