@@ -18,8 +18,8 @@ public class MemberController {
     @Autowired      //제어역전[DI] 메모리 관리 스프링 컨테이너에 위임
     private MemberService memberService;    //서비스 객체 생성
 
-    // ----------------------- HTML 반환 매핑 -------------------------------
-    @GetMapping("/signup")//프로젝트 내 html을 반환(매핑)
+    // ----------------------- HTML 반환 매핑 -> [리액트 사용시 사용x] -------------------------------
+    /*@GetMapping("/signup")//프로젝트 내 html을 반환(매핑)
     public Resource getsignup() { return new ClassPathResource("templates/member/signup.html"); }
 
     @GetMapping("/login")
@@ -36,7 +36,8 @@ public class MemberController {
     public Resource getupdate() { return new ClassPathResource("templates/member/update.html"); }
 
     @GetMapping("/logout")
-    public Resource getlogout() { return new ClassPathResource("templates/member/logout.html"); }
+    public Resource getlogout() { return new ClassPathResource("templates/member/logout.html"); }*/
+
     // ----------------------- 서비스/기능 매핑 -------------------------------
     @PostMapping("/setmember")      //1. 회원가입 기능
     public int setmember(@RequestBody MemberDto memberDto){

@@ -11,9 +11,16 @@ import Clock from "./Book/chapter4/Clock";
 import CommentList from "./Book/chapter5/CommentList";
 import Signup from "./component/member/Signup";
 import Index from './component/Index'
+import NotificationList from "./Book/chapter6/NotificationList";
 
 // 2. DOM 컨테이너 뿌릴 위치 [public-index.html 안에 있는 태그]
 const root = ReactDOM.createRoot(document.getElementById('root'));
+// 프로젝트
+root.render(
+    <React.StrictMode>
+        <Index />
+    </React.StrictMode>
+);
 
 // 3. DOM 컨테이너 렌더링
 //1. 기본값 [App.js 컴포넌트를 root에 렌더링]
@@ -47,16 +54,19 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
     </React.StrictMode>
 );*/
 
+//5.
 /*root.render(
     <React.StrictMode>
         <Signup />
     </React.StrictMode>
 );*/
-root.render(
+
+//6.
+/*root.render(
     <React.StrictMode>
-        <Index />
+        <NotificationList />
     </React.StrictMode>
-);
+);*/
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

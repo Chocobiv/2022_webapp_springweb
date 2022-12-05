@@ -22,8 +22,8 @@ public class BoardController {
     private BoardService boardService;
 
 
-    // ------------------- 2. 페이지[html] 요청 로드 [view] ------------------- //
-    //1. 게시물목록 페이지 열기
+    // ------------------- 2. 페이지[html] 요청 로드 [view] -> [리액트 사용시 사용x] ------------------- //
+    /*//1. 게시물목록 페이지 열기
     @GetMapping("/list")    //URL : localhost:8081/board/list 요청시 해당 html 반환
     public Resource getlist(){ return new ClassPathResource("templates/board/list.html"); }
     //2. 게시물쓰기 페이지 열기
@@ -34,7 +34,7 @@ public class BoardController {
     public Resource getview(){ return new ClassPathResource("templates/board/view.html"); }
     //4. 게시물수정 페이지 열기
     @GetMapping("/update")
-    public Resource getupdate(){ return new ClassPathResource("templates/board/update.html"); }
+    public Resource getupdate(){ return new ClassPathResource("templates/board/update.html"); }*/
 
     // --------------------- 3. 요청과 응답 처리 [model] --------------------- //
     //1. 게시물 쓰기 [첨부파일 없을 때]

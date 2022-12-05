@@ -6,6 +6,9 @@ import React from 'react';
 import Header from './Header';
 import Footer from "./Footer";
 import Signup from "./member/Signup";
+import Home from "./Home";
+import Login from "./member/Login";
+import BoardList from "./board/BoardList";
 //라우터 설치 npm i react-router-dom
 import {
     HashRouter,
@@ -23,8 +26,10 @@ function Index(props) {
             <BrowserRouter>
                 <Header/>
                     <Routes>
-                        <Route path={"/"}></Route>
+                        <Route path={"/"} element={<Home/>}></Route>
                         <Route path={"/member/signup"} element={<Signup/>}></Route>
+                        <Route path={"/member/login"} element={<Login/>}></Route>
+                        <Route path={"/board/list"} element={<BoardList/>}></Route>
                     </Routes>
                 <Footer/>
             </BrowserRouter>
