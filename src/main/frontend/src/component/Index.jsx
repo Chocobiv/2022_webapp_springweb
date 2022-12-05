@@ -10,19 +10,12 @@ import Home from "./Home";
 import Login from "./member/Login";
 import BoardList from "./board/BoardList";
 //라우터 설치 npm i react-router-dom
-import {
-    HashRouter,
-    BrowserRouter,
-    Routes,
-    Route,
-    Link,
-    Router
-} from "react-router-dom";
+import {HashRouter,BrowserRouter,Routes,Route,Link,Router} from "react-router-dom";
 
 //2.
 function Index(props) {
     return (
-        <div>
+        <div className={"webbox"}>
             <BrowserRouter>
                 <Header/>
                     <Routes>
