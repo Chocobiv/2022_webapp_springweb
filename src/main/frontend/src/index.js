@@ -12,6 +12,7 @@ import CommentList from "./Book/chapter5/CommentList";
 import Signup from "./component/member/Signup";
 import Index from './component/Index'
 import NotificationList from "./Book/chapter6/NotificationList";
+import Counter from "./Book/chapter7/Ex1_Hook";
 
 // 2. DOM 컨테이너 뿌릴 위치 [public-index.html 안에 있는 태그]
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -65,6 +66,13 @@ root.render(
 /*root.render(
     <React.StrictMode>
         <NotificationList />
+    </React.StrictMode>
+);*/
+
+//7.
+/*root.render(
+    <React.StrictMode>
+        <Counter />
     </React.StrictMode>
 );*/
 
