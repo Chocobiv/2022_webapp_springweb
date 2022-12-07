@@ -18,8 +18,16 @@ function Signup(props) {    // * 회원가입 컴포넌트 *
         }
         //비동기 통신 [ ajax vs fetch[react내장] vs axios[react외장(별도설치)->json]]
         axios                   //3. axios 비동기통신 이용한 서버[Spring] 통신
-            .post("http://localhost:8081/member/setmember", info)      //요청
-            .then(res => { alert(res.data) })                               //응답
+            .post("http://localhost:8081/member/setmember", info)       //요청메소드 (url,data)
+            .then(res => {
+                let result = res.data
+                if (result != 0){   //회원가입 성공
+                    alert('회원가입 성공')
+                }else{              //회원가입 실패
+                    alert('회원가입 실패')
+                }
+            })                               //응답
+            .catch(err => { console.log(err)})                                    //예외처리
     }
     //2. 인증코드 요청 함수 정의 [화살표함수 정의]
     const getauth = () =>{ alert("클릭 이벤트") }
