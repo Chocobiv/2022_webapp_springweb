@@ -26,12 +26,37 @@ export default function Counter(props){
 
 // * 해결책 : 리액트 훅 이라는 곳에서 useState 라이브러리 사용하자
 // -------- 1. 현재 페이지에서 사용될 라이브버리 import
-import React,{useState} from 'react';
+/*import React,{useState} from 'react';
 export default function Counter(props){
     // -------- 2. JS 혹은 라이브러리 --------
     const [count, setCount] = useState(0)
 
     // -------- 3. 렌더링 되는 HTML + JSX 표현식 { } + 컴포넌트 --------
+    return (
+        <div>
+            <p> 총 {count}번 클릭했습니다. </p>
+            <button onClick={() => setCount(count+1)}>{/!*새로운 count는 보여지지 않는다. 왜? 재렌더링하지 않음*!/}
+                클릭
+            </button>
+        </div>
+    )
+}*/
+
+
+import React,{useState,useEffect} from 'react';
+export default function Counter(props){
+    const [count, setCount] = useState(0)
+
+    //useEffect (함수,의존성배열)
+    useEffect( () => {
+        document.title = `총 ${count}번 클릭했습니다.`
+    })
+
+    useEffect( () => {
+        document.title = `총 ${count}번 클릭했습니다.`
+        return () => {}//unmount
+    })
+
     return (
         <div>
             <p> 총 {count}번 클릭했습니다. </p>
