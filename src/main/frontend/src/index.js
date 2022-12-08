@@ -17,15 +17,16 @@ import Accommodate from "./Book/chapter7/Accommodate";              //7장
 import ConfirmButton from "./Book/chapter8/ConfirmButton";          //8장
 import ConfirmButton2 from "./Book/chapter8/ConfirmButton2";        //8장
 import TestState from "./Book/chapter8/TestState";
+import LandingPage from "./Book/chapter9/LandingPage";
 
 // 2. DOM 컨테이너 뿌릴 위치 [public-index.html 안에 있는 태그]
 const root = ReactDOM.createRoot(document.getElementById('root'));
 // 프로젝트
-/*root.render(
+root.render(
     <React.StrictMode>
         <Index />
     </React.StrictMode>
-);*/
+);
 
 // 3. DOM 컨테이너 렌더링
 //1. 기본값 [App.js 컴포넌트를 root에 렌더링]
@@ -94,17 +95,25 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
     </React.StrictMode>
 );*/
 //8. 실습
-root.render(
+/*root.render(
     <React.StrictMode>
         <ConfirmButton2 />
     </React.StrictMode>
-);
+);*/
 
 /*root.render(
     <React.StrictMode>
         <TestState />
     </React.StrictMode>
 );*/
+
+//9. 실습
+/*root.render(
+    <React.StrictMode>
+        <LandingPage />
+    </React.StrictMode>
+);*/
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
