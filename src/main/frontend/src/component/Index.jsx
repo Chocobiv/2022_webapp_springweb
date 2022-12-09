@@ -10,8 +10,23 @@ import Home from "./Home";
 import Login from "./member/Login";
 import BoardList from "./board/BoardList";
 import BoardWrite from "./board/BoardWrite";
+//Book
+import BookList from "../Book/BookList";
+import Library from "../Book/chapter3/Library";                      //3장
+import Clock from "../Book/chapter4/Clock";                          //4장
+import CommentList from "../Book/chapter5/CommentList";              //5장
+import NotificationList from "../Book/chapter6/NotificationList";    //6장
+import Counter from "../Book/chapter7/Ex1_Hook";                     //7장
+import Accommodate from "../Book/chapter7/Accommodate";              //7장
+import ConfirmButton from "../Book/chapter8/ConfirmButton";          //8장
+import ConfirmButton2 from "../Book/chapter8/ConfirmButton2";        //8장
+import TestState from "../Book/chapter8/TestState";                  //8장
+import LandingPage from "../Book/chapter9/LandingPage";              //9장
+import AttendanceBook from "../Book/chapter10/AttendanceBook";       //10장
 //라우터 설치 npm i react-router-dom
 import {HashRouter,BrowserRouter,Routes,Route,Link,Router} from "react-router-dom";
+
+
 
 //2.
 function Index(props) {
@@ -25,6 +40,18 @@ function Index(props) {
                         <Route path={"/member/login"} element={<Login/>}></Route>
                         <Route path={"/board/list"} element={<BoardList/>}></Route>
                         <Route path={"/board/write"} element={<BoardWrite/>}></Route>
+                        <Route path={"/book/list"} element={<BookList/>}></Route>
+                        <Route path={"/book/library"} element={<Library/>}></Route>
+                        <Route path={"/book/clock"} element={<Clock/>}></Route>
+                        <Route path={"/book/commentlist"} element={<CommentList/>}></Route>
+                        <Route path={"/book/notificationlist"} element={<NotificationList/>}></Route>
+                        <Route path={"/book/ex1hook"} element={<Counter/>}></Route>
+                        <Route path={"/book/accommodate"} element={<Accommodate/>}></Route>
+                        <Route path={"/book/confirmbutton"} element={<ConfirmButton/>}></Route>
+                        <Route path={"/book/confirmbutton2"} element={<ConfirmButton2/>}></Route>
+                        <Route path={"/book/teststate"} element={<TestState/>}></Route>
+                        <Route path={"/book/landingpage"} element={<LandingPage/>}></Route>
+                        <Route path={"/chapter10/attendancebook"} element={<AttendanceBook/>}></Route>
                     </Routes>
                 <Footer/>
             </BrowserRouter>

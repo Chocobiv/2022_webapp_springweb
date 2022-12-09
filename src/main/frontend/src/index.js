@@ -16,8 +16,8 @@ import Counter from "./Book/chapter7/Ex1_Hook";                     //7장
 import Accommodate from "./Book/chapter7/Accommodate";              //7장
 import ConfirmButton from "./Book/chapter8/ConfirmButton";          //8장
 import ConfirmButton2 from "./Book/chapter8/ConfirmButton2";        //8장
-import TestState from "./Book/chapter8/TestState";
-import LandingPage from "./Book/chapter9/LandingPage";
+import TestState from "./Book/chapter8/TestState";                  //8장
+import LandingPage from "./Book/chapter9/LandingPage";              //9장
 
 // 2. DOM 컨테이너 뿌릴 위치 [public-index.html 안에 있는 태그]
 const root = ReactDOM.createRoot(document.getElementById('root'));
