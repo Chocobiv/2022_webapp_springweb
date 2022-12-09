@@ -43,17 +43,20 @@ public class MemberService implements UserDetailsService, OAuth2UserService<OAut
 
     // ------------------------ 서비스 메소드 ------------------------------
 
-    // ---------------- 로그인된 엔티티 호출 ------------ //
+    // ---------------- 로그인된 엔티티 호출 [시큐리티 적용 전과 후가 다름!] ------------ //
     public MemberEntity getEntity() {
         //1. 로그인 정보 확인 [세션 = loginMno]
-        Object object = request.getSession().getAttribute("loginMno");
-        if(object == null){ return null; }     //로그인이 안됐으면 그냥 종료
+            //Object object = request.getSession().getAttribute("loginMno");
+        Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); //로그인에 성공한 정보 = principal에 담겨있음
 
+        if(object == null){ return null; }     //로그인이 안됐으면 그냥 종료
         //2. 로그인된 회원번호
-        int mno = (Integer)object;
+            //int mno = (Integer)object;
+        MemberDto memberDto = (MemberDto) object;
 
         //3. 회원번호 -> 회원정보 호출
-        Optional<MemberEntity> optional = memberRepository.findById(mno);
+            //Optional<MemberEntity> optional = memberRepository.findById(mno);
+        Optional<MemberEntity> optional = memberRepository.findByMemail(memberDto.getMemail());
         if(!optional.isPresent()){ return null; }
         //4. 로그인된 회원의 엔티티
         return optional.get();
@@ -112,7 +115,7 @@ public class MemberService implements UserDetailsService, OAuth2UserService<OAut
         // 3.
         MemberDto memberDto = memberEntity.toDto(); // 엔티티 --> Dto
         memberDto.setAuthorities( authorities );       // dto --> 토큰 추가
-        return memberDto; // Dto 반환 [ MemberDto는 UserDetails 의 구현체 ]
+        return memberDto; // 로그인 된 회원 Dto 반환 [ MemberDto는 UserDetails 의 구현체 ]
         // 구현체 : 해당 인터페이스의 추상메소드[선언만]를 구현해준 클래스의 객체
     }
 
@@ -300,6 +303,6 @@ public class MemberService implements UserDetailsService, OAuth2UserService<OAut
         memberDto.setMemail(memberEntity.getMemail());
         memberDto.setAuthorities(authorities);
         memberDto.setAttributes(oauthDto.getAttributes());
-        return memberDto;
+        return memberDto;//로그인 세션
     }
 }
