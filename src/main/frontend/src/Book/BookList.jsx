@@ -14,7 +14,9 @@ export default function BookList(props) {
             <a href="/book/confirmbutton2" style={{marginRight:10}}>Chapter8-2</a>
             <a href="/book/teststate" style={{marginRight:10}}>Chapter8-3</a>
             <a href="/book/landingpage" style={{marginRight:10}}>Chapter9</a>
-            <a href="/chapter10/attendancebook">Chapter10</a>
+            <a href="/chapter10/attendancebook" style={{marginRight:10}}>Chapter10</a><br/>
+            <a href="/chapter11/form" style={{marginRight:10}}>Chapter11-1</a>
+            <a href="/chapter11/signup" style={{marginRight:10}}>Chapter11-2</a>
         </div>
     )
 }
