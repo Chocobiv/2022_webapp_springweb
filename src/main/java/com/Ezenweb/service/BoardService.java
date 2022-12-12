@@ -144,7 +144,7 @@ public class BoardService {
 
 
         //검색여부 / 카테고리 판단
-        if(pageDto.getKey().equals("btitle")){           //검색필드가 제목이면
+        /*if(pageDto.getKey().equals("btitle")){           //검색필드가 제목이면
             //조건1. 제목 검색        조건2. 카테고리
             entitylist = boardRepository.findByBtitle(pageDto.getBcno(),pageDto.getKeyword(),pageable);
         }else if(pageDto.getKey().equals("bcontent")) {  //검색필드가 내용이면
@@ -154,7 +154,8 @@ public class BoardService {
             //조건1. 카테고리
             if(pageDto.getBcno() == 0){entitylist = boardRepository.findAll(pageable);}
             else entitylist = boardRepository.findByBcno(pageDto.getBcno(),pageable);
-        }
+        }*/
+        entitylist = boardRepository.findBySearch(pageDto.getBcno(),pageDto.getKey(),pageDto.getKeyword(),pageable);
 
         //프론트엔드에 표시할 페이징번호버튼 수
         int btncount = 5;                               //1. 페이지에 표시할 총 페이지 버튼 개수 [1~5페이지 버튼 보이게]
