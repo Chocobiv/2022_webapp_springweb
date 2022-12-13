@@ -10,6 +10,7 @@ import Home from "./Home";
 import Login from "./member/Login";
 import BoardList from "./board/BoardList";
 import BoardWrite from "./board/BoardWrite";
+import BoardView from "./board/BoardView";
 //Book
 import BookList from "../Book/BookList";
 import Library from "../Book/chapter3/Library";                      //3장
@@ -43,6 +44,8 @@ function Index(props) {
                         <Route path={"/member/login"} element={<Login/>}></Route>
                         <Route path={"/board/list"} element={<BoardList/>}></Route>
                         <Route path={"/board/write"} element={<BoardWrite/>}></Route>
+                        <Route path={"/board/view/:bno"} element={<BoardView/>}></Route>
+
                         <Route path={"/book/list"} element={<BookList/>}></Route>
                         <Route path={"/book/library"} element={<Library/>}></Route>
                         <Route path={"/book/clock"} element={<Clock/>}></Route>

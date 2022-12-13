@@ -8,6 +8,9 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity //엔티티 정의
 @Table(name = "board")  //테이블명 정의
@@ -54,6 +57,9 @@ public class BoardEntity extends BaseEntity {
                 .memail(this.memberEntity.getMemail().split("@")[0])
                 .bcno(this.bcategoryEntity.getBcno())
                 .bfilename(this.bfile)
+                .bdate(this.getCdate().toLocalDate().toString().equals( LocalDateTime.now().toLocalDate().toString()) ?   //오늘이면
+                        this.getCdate().toLocalTime().format(DateTimeFormatter.ofPattern("HH : mm : ss")) :  //시간만
+                        this.getCdate().toLocalDate().toString())   //날짜만
                 .build();
     }
 }

@@ -37,6 +37,9 @@ export default function BoardList(props){
         setPageInfo({bcno:pageInfo.bcno, page:1,key:document.querySelector('.key').value,keyword:document.querySelector('.keyword').value})//검색 시 첫페이지부터 보여주기
     }
 
+    const loadView = (bno)=>{
+        window.location.href = '/board/view/'+bno
+    }
 
     return (
         <div>
@@ -58,8 +61,9 @@ export default function BoardList(props){
                         return(
                             <tr>
                                 <td>{b.bno}</td>
-                                <td>{b.btitle}</td>
+                                <td onClick={ () => loadView(b.bno) }>{b.btitle}</td>
                                 <td>{b.memail}</td>
+                                <td>{b.bdate}</td>
                                 <td>{b.bview}</td>
                             </tr>
                         )

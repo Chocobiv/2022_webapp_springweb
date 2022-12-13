@@ -12,10 +12,6 @@ export default function Header(props) {
     //1. 비동기 통신 [AJAX, fetch(리액트내장라이브러리), axios(설치형라이브러리)] axios : Data type = json(default)
     axios
         .get("/member/getloginMno")
-        //.get("URL")
-        //.post("URL",data)
-        //.put("URL",data)
-        //.delete("URL")
         .then( (response) => {setLogin(response.data);})
         //.then(옵션메소드)
         //.then( (응답객채명) => { 응답 실행문 } )
