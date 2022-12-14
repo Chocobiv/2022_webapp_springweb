@@ -27,7 +27,7 @@ export default function BoardWrite(props) {
 
         axios.post("/board/setbcategory", {bcname:category})     /* JSON 타입, 즉 key:value 로 보내야함! */
             .then(res=> {
-                if(res.data == true){ alert("카테고리 등록 성공"); getbcategory(); }
+                if(res.data == true){ alert("카테고리 등록 성공"); getbcategory(); setCategory(''); }
                 else{ alert("카테고리 등록 실패")}
             })
             .catch(err=>console.log(err))
@@ -35,16 +35,8 @@ export default function BoardWrite(props) {
 
     //3. 입력받은 게시물 등록 함수 [실행조건 : 글쓰기 등록 버튼 눌렀을 때]
     const setboard = () => {
-        //1,. 카테고리 선택 유효성 검사
+        //1. 카테고리 선택 유효성 검사
         if(bcno == 0){alert("카테고리를 선택해주세요."); return;}
-        //2. 로그인 여부 검사
-        axios.get("/member/getloginMno")
-            .then( (response) => {
-                if(response.data == ''){
-                    alert('로그인 후 게시물 작성이 가능합니다.')
-                    return
-                }
-            })
 
         let boardform = document.querySelector('.boardform')  //폼 가져오기
         let formdata = new FormData(boardform)

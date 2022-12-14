@@ -200,7 +200,7 @@ public class MemberService implements UserDetailsService, OAuth2UserService<OAut
         }else{                                  //anonymousUser 아니면 로그인 후
             MemberDto memberDto = (MemberDto) principal;
             //return memberDto.getMemail()+"_"+memberDto.getAuthorities();  //이런 식으로 _를 구분자로 쓰고 붙여서 반환할 수도 있다
-            return memberDto.getMemail()+"_"+memberDto.getAuthorities();
+            return memberDto.getMemail();
         }
     }
 

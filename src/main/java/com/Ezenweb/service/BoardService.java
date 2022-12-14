@@ -42,7 +42,7 @@ public class BoardService {
 
 
     //첨부파일 경로
-    String path = "C:\\";
+    String path = "C:\\upload\\";   //c드라이브에 upload 폴더 생성해야 함
 
     // --------------------- 2. 서비스 ------------------------- //
 
@@ -79,7 +79,7 @@ public class BoardService {
 
     // ** 첨부파일 업로드 [1.쓰기메소드 2.수정메소드 에서 사용 => 재사용성] **
     public boolean fileuplooad(BoardDto boardDto,BoardEntity boardEntity){
-        if(boardDto.getBfile() != null) {   // ** 첨부파일 있을 때
+        if(!boardDto.getBfile().getOriginalFilename().equals("")) {   // ** 첨부파일 있을 때
             // ----- 업로드된 파일의 이름 [문제점 : 파일명 중복] ----- //
             //1. pk + 파일명 [게시판테이블, 첨부파일테이블]
             //2. uuid[범용고유식별자] 클래스 + 파일명
@@ -225,7 +225,7 @@ public class BoardService {
             BoardEntity boardEntity = optional.get();
 
             //1. 수정할 첨부파일이 있을 때 -> 기존 첨부파일 삭제 -> 새로운 첨부파일 업로드, DB수정
-            if(boardDto.getBfile() != null){//boardDto : 수정할 정보     boardEntity : 원본[DB테이블]
+            if(!boardDto.getBfile().getOriginalFilename().equals("")){//boardDto : 수정할 정보     boardEntity : 원본[DB테이블]
                 if(boardEntity.getBfile() != null) {//기존 첨부파일 있을 때
                     File file = new File(path + boardEntity.getBfile());//기존 첨부파일 객체화
                     if (file.exists()) file.delete();   //존재하면 파일 삭제

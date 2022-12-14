@@ -29,6 +29,7 @@ import Ex2_Signup from "../Book/chapter11/SignUp"                        //11장
 //라우터 설치 npm i react-router-dom
 import {HashRouter,BrowserRouter,Routes,Route,Link,Router} from "react-router-dom";
 import Ex1_Event from "../Book/chapter8/Ex1_Event";
+import BoardUpdate from "./board/BoardUpdate";
 
 
 
@@ -45,6 +46,7 @@ function Index(props) {
                         <Route path={"/board/list"} element={<BoardList/>}></Route>
                         <Route path={"/board/write"} element={<BoardWrite/>}></Route>
                         <Route path={"/board/view/:bno"} element={<BoardView/>}></Route>
+                        <Route path={"/board/update/:bno"} element={<BoardUpdate/>}></Route>
 
                         <Route path={"/book/list"} element={<BookList/>}></Route>
                         <Route path={"/book/library"} element={<Library/>}></Route>

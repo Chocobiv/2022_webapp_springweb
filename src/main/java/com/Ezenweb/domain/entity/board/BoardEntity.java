@@ -54,7 +54,7 @@ public class BoardEntity extends BaseEntity {
                 .btitle(this.btitle)
                 .bcontent(this.bcontent)
                 .bview(this.bview)
-                .memail(this.memberEntity.getMemail().split("@")[0])
+                .memail(this.memberEntity.getMemail())
                 .bcno(this.bcategoryEntity.getBcno())
                 .bfilename(this.bfile)
                 .bdate(this.getCdate().toLocalDate().toString().equals( LocalDateTime.now().toLocalDate().toString()) ?   //오늘이면

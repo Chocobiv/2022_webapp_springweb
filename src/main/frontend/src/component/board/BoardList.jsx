@@ -39,6 +39,7 @@ export default function BoardList(props){
 
     const loadView = (bno)=>{
         window.location.href = '/board/view/'+bno
+        //조회수 증가 처리
     }
 
     return (
