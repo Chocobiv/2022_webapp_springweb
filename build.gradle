@@ -28,6 +28,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail'          //스프링 메일전송 SMTP
     implementation 'org.springframework.boot:spring-boot-starter-security'      //스프링 시큐리티
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' //oauth2 [소셜 로그인]
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'     //웹 소켓
 }
 
 tasks.named('test') {
