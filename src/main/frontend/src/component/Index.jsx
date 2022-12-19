@@ -25,7 +25,8 @@ import TestState from "../Book/chapter8/TestState";                  //8장
 import LandingPage from "../Book/chapter9/LandingPage";              //9장
 import AttendanceBook from "../Book/chapter10/AttendanceBook";       //10장
 import Ex1_Form from "../Book/chapter11/Ex1_Form";                   //11장
-import Ex2_Signup from "../Book/chapter11/SignUp"                        //11장
+import Ex2_Signup from "../Book/chapter11/SignUp"                    //11장
+import Calculator from "../Book/chapter12/Calculator";               //12장
 //라우터 설치 npm i react-router-dom
 import {HashRouter,BrowserRouter,Routes,Route,Link,Router} from "react-router-dom";
 import Ex1_Event from "../Book/chapter8/Ex1_Event";
@@ -64,6 +65,7 @@ function Index(props) {
                         <Route path={"/chapter10/attendancebook"} element={<AttendanceBook/>}></Route>
                         <Route path={"/chapter11/form"} element={<Ex1_Form/>}></Route>
                         <Route path={"/chapter11/signup"} element={<Ex2_Signup/>}></Route>
+                        <Route path={"/chapter12/calculator"} element={<Calculator/>}></Route>
                     </Routes>
                 <Footer/>
             </BrowserRouter>

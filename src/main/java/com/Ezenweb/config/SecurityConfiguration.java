@@ -22,7 +22,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override   //재정의 [상속받은 클래스로부터 메소드 재구현]
     protected void configure(HttpSecurity http) throws Exception {
         //super.configure(http);  //super : 상속클래스     // 기본값 : 모든 HTTP 보안 설정
-        http.formLogin()                    //로그인 페이지 보안 설정
+        http
+            //권한 [role]에 따른 HTTP 제한두기
+            .authorizeHttpRequests()//1. 인증 http 요청들 [인증=로그인된] http 조건들
+                .antMatchers("/board/write").hasRole("MEMBER")//게시물 쓰기는 회원[MEMBER]만 가능
+                .antMatchers("/board/update/**").hasRole("MEMBER")
+                .antMatchers("/admin/**").hasRole("ADMIN")//admin으로 시작하는 경로들은 ADMIN 권한을 가진 사용자만 접근 가능
+                .antMatchers("/**").permitAll()//접근 제한 없음 [모든 유저가 사용가능]
+            /*.and()
+                .exceptionHandling()//오류 페이지에 대한    페이지 매핑
+                .accessDeniedPage("/error")//오류 발생 시 해당 URL로 이동*/
+            .and()
+                .formLogin()                    //로그인 페이지 보안 설정
                 .loginPage("/member/login")     //아이디와 비밀번호를 입력받을 URL [로그인 페이지]
                 .loginProcessingUrl("/member/getmember")//로그인을 처리할 URL [service로 감 -> loadUserByUsername]
                 .defaultSuccessUrl("/")         //로그인 성공했을 때 이동할 URL
