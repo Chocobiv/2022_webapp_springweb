@@ -26,6 +26,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             //권한 [role]에 따른 HTTP 제한두기
             .authorizeHttpRequests()//1. 인증 http 요청들 [인증=로그인된] http 조건들
                 .antMatchers("/board/write").hasRole("MEMBER")//게시물 쓰기는 회원[MEMBER]만 가능
+                .antMatchers("/room/write").hasRole("MEMBER")//게시물 쓰기는 회원[MEMBER]만 가능
                 .antMatchers("/board/update/**").hasRole("MEMBER")
                 .antMatchers("/admin/**").hasRole("ADMIN")//admin으로 시작하는 경로들은 ADMIN 권한을 가진 사용자만 접근 가능
                 .antMatchers("/**").permitAll()//접근 제한 없음 [모든 유저가 사용가능]
@@ -55,6 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .ignoringAntMatchers("/board/bcategorylist")    //카테고리 출력
                 .ignoringAntMatchers("/board/delboard")    //게시물 삭제
                 .ignoringAntMatchers("/board/upboard")    //게시물 수정
+                .ignoringAntMatchers("/room/write")
             .and()
                 .oauth2Login()      //소셜 로그인 보안 설정
                 .defaultSuccessUrl("/")//소셜 로그인 성공시 이동하는 URL

@@ -11,6 +11,9 @@ import Login from "./member/Login";
 import BoardList from "./board/BoardList";
 import BoardWrite from "./board/BoardWrite";
 import BoardView from "./board/BoardView";
+import BoardUpdate from "./board/BoardUpdate";
+import Chatting from "./chatting/Chatting";
+import RoomWrite from "./room/RoomWrite";
 //Book
 import BookList from "../Book/BookList";
 import Library from "../Book/chapter3/Library";                      //3장
@@ -29,9 +32,6 @@ import Ex2_Signup from "../Book/chapter11/SignUp"                    //11장
 import Calculator from "../Book/chapter12/Calculator";               //12장
 //라우터 설치 npm i react-router-dom
 import {HashRouter,BrowserRouter,Routes,Route,Link,Router} from "react-router-dom";
-import Ex1_Event from "../Book/chapter8/Ex1_Event";
-import BoardUpdate from "./board/BoardUpdate";
-import Chatting from "./chatting/Chatting";
 
 
 
@@ -50,6 +50,7 @@ function Index(props) {
                         <Route path={"/board/view/:bno"} element={<BoardView/>}></Route>
                         <Route path={"/board/update/:bno"} element={<BoardUpdate/>}></Route>
                         <Route path={"/chatting"} element={<Chatting/>}></Route>
+                        <Route path={"/room/write"} element={<RoomWrite/>}></Route>
 
                         <Route path={"/book/list"} element={<BookList/>}></Route>
                         <Route path={"/book/library"} element={<Library/>}></Route>

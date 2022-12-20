@@ -38,6 +38,7 @@ export default function Header(props) {
                             <>
                                 <li>{login}</li>
                                 <li><a href={"/member/logout"}>로그아웃</a></li>
+                                <li><a href={"/room/write"}>방 등록</a></li>
                                 <li><Link to={"/book/list"}>React공부방</Link></li>
                             </>
                         )
