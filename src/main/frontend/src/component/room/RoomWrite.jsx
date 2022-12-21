@@ -24,6 +24,7 @@ export default function RoomWrite(props) {
                 const location = res.data.documents[0]//documents[0]: [카카오 공식 문서]보고 쓴 것
                 //5. state 업데이트
                 setAddress({name: data.address,lat: location.y,lng: location.x})
+                console.log( address )
             })
     };
     /* --------------------------------------------------------------------------- */
@@ -36,6 +37,7 @@ export default function RoomWrite(props) {
     //<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 사용하세요"></script>
 
     const mapOption = {     //3. 지도 옵션 [위치, 확대 레벨]
+
         center: new kakao.maps.LatLng(address.lat, address.lng), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };
@@ -45,7 +47,7 @@ export default function RoomWrite(props) {
         var map = new kakao.maps.Map(mapContainer.current, mapOption);  // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
         //2. https://apis.map.kakao.com/web/wizard/ 에서 마커 체크-이미지 마커 체크 후 복붙
         // 마커 이미지의 주소
-        var markerImageUrl = 'http://localhost/8081/static/media/marker.4864bf08696f1439e095.png',
+        var markerImageUrl = 'http://localhost:8081/static/media/marker.4864bf08696f1439e095.png',
             markerImageSize = new kakao.maps.Size(40, 42), // 마커 이미지의 크기
             markerImageOptions = {
                 offset : new kakao.maps.Point(20, 42)// 마커 좌표에 일치시킬 이미지 안의 좌표
@@ -65,13 +67,25 @@ export default function RoomWrite(props) {
 
     //4. 방 등록 버튼을 눌렀을 때 이벤트
     const onWrite = () =>{
-
+        //방이름, 가격, 거래방식, 여러개 이미지, 좌표(주소이름,위도,경도)[address] 를 controller로 넘기기
+        let roomform = document.querySelector('.roomform')
+        let formdata = new FormData(roomform)//1. 폼 전체
+        formdata.set("rname",address.name)//2. 폼 전체 + 주소 정보
+        formdata.set("rlat",address.lat)//2. 폼 전체 + 좌표
+        formdata.set("rlng",address.lng)//2. 폼 전체 + 좌표
+        axios.post("/room/setroom", formdata, {headers:{'Content-Type': 'multipart/form-data'}})//3. 서버에게 요청
+            .then(res => {
+                if(res.data == true){
+                    alert("방 등록 성공")
+                    window.location.href = '/'
+                }else{ alert("방 등록 실패") }
+            })
     }
 
     return(
         <div>
             <h3>방 등록</h3>
-            <form>
+            <form className={"roomform"}>
                 방이름 : <input type={"text"} name={"rtitle"}/>
                 가격 : <input type={"text"} name={"rprice"}/>
                 거래방식 :
@@ -80,7 +94,8 @@ export default function RoomWrite(props) {
                     <option value="전세">전세</option>
                     <option value="월세">월세</option>
                 </select>
-                이미지 : <input type={"file"} multiple={"multiple"} name={"rimg"} />
+                {/* 첨부파일 여러개 */}
+                이미지 : <input type={"file"} multiple={"multiple"} name={"rimg"} /><br/>
                 {/* 카카오 주소 API */}
                 위치[좌표] :
                 <div>{address.name}</div>

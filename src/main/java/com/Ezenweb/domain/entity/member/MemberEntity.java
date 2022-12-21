@@ -3,6 +3,7 @@ package com.Ezenweb.domain.entity.member;
 import com.Ezenweb.domain.dto.MemberDto;
 import com.Ezenweb.domain.entity.BaseEntity;
 import com.Ezenweb.domain.entity.board.BoardEntity;
+import com.Ezenweb.domain.entity.room.RoomEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,6 +30,11 @@ public class MemberEntity extends BaseEntity {
     @Builder.Default        //빌더 사용시 해당 필드의 초기값 설정 [값을 안넣으면 그냥 깡통 들어감]
     @ToString.Exclude       //해당 필드는 ToString()에서 사용하지 않는다.
     private List<BoardEntity> boardEntityList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "memberEntity")  //[1:n] PK에 사용하는 어노테이션   mappedBy="fk필드명"
+    @Builder.Default        //빌더 사용시 해당 필드의 초기값 설정 [값을 안넣으면 그냥 깡통 들어감]
+    @ToString.Exclude       //해당 필드는 ToString()에서 사용하지 않는다.
+    private List<RoomEntity> roomEntityList = new ArrayList<>();
 
     @Column
     private String mrol;            //회원 등급 필드

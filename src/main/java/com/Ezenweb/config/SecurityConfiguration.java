@@ -57,6 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .ignoringAntMatchers("/board/delboard")    //게시물 삭제
                 .ignoringAntMatchers("/board/upboard")    //게시물 수정
                 .ignoringAntMatchers("/room/write")
+                .ignoringAntMatchers("/room/setroom")
             .and()
                 .oauth2Login()      //소셜 로그인 보안 설정
                 .defaultSuccessUrl("/")//소셜 로그인 성공시 이동하는 URL

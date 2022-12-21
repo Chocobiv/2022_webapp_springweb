@@ -1,5 +1,6 @@
 package com.Ezenweb.controller;
 
+import com.Ezenweb.domain.dto.RoomDto;
 import com.Ezenweb.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,8 +16,8 @@ public class RoomController {
     private RoomService roomService;
 
     // [주의] 리액트 라우터에 있는 path의 주소가 같으면 오류 발생
-    @PostMapping("/setRoom")
-    public boolean write(){
-        return roomService.write();
+    @PostMapping("/setroom")
+    public boolean write(RoomDto roomDto){
+        System.out.println(roomDto.toString()); return roomService.write(roomDto);
     }
 }

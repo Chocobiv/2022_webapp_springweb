@@ -1,6 +1,5 @@
 
 import React from 'react';
-import styles from './signup.css';
 import axios from "axios";
 
 function Signup(props) {    // * 회원가입 컴포넌트 *
