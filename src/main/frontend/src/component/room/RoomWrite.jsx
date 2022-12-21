@@ -37,7 +37,6 @@ export default function RoomWrite(props) {
     //<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 사용하세요"></script>
 
     const mapOption = {     //3. 지도 옵션 [위치, 확대 레벨]
-
         center: new kakao.maps.LatLng(address.lat, address.lng), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };
