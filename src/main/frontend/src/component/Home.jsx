@@ -1,10 +1,21 @@
 import React, {useEffect, useRef, useState} from 'react'
 import axios from 'axios'
-
+import Styles from '../css/Home.css'
+// 리액트 부트스트랩 import
+import Offcanvas from 'react-bootstrap/Offcanvas'
+import Carousel from 'react-bootstrap/Carousel';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Home(props){
+
+    /* ------- 부트스트랩 사이드바 상태[열렸을 때:true / 닫혔을 때:false] 변수 ------- */
+    const [show, setShow] = useState(false)
+    const handleClose = () => setShow(false)
+    /* ----------------------------------------------------------------------- */
+    const [selectIndex, setSelectIndex] = useState(0) //마커 클릭시 클릭된 roomlist index 저장
+
     /* ------------------------------ Room 데이터 ------------------------------ */
-    const [roomList,setRoomList] = useState([])
+    const [roomList,setRoomList] = useState([{getrimg:[]}])
 
     useEffect(()=>{
         axios.get("/room/getroomlist")
@@ -29,7 +40,7 @@ export default function Home(props){
         });
 
         // --------------- 마커 이미지 커스텀 --------------- //
-        var markerImageUrl = 'http://localhost:8081/static/media/marker.4864bf08696f1439e095.png',
+        var markerImageUrl = 'http://localhost:8081/static/media/marker_icon.png',
             markerImageSize = new kakao.maps.Size(40, 42), // 마커 이미지의 크기
             markerImageOptions = {
                 offset : new kakao.maps.Point(20, 42)// 마커 좌표에 일치시킬 이미지 안의 좌표
@@ -39,7 +50,7 @@ export default function Home(props){
 
         // --------------- 클러스터러 --------------- //
         // * 데이터를 가져와서 마커를 생성하고 클러스터러에 추가 *
-        var markers = roomList.map((position) => {
+        var markers = roomList.map((position,i) => {
             //가져온 데이터의 좌표들을 반복문 돌리면서
             // 1. 마커 생성
             // 2. 생성된 마커들을 markers에 저장 [Why? map은 새로운 배열이 리턴됨] => 바로 리턴 안되게 커스텀 필요
@@ -48,31 +59,43 @@ export default function Home(props){
                 image : markerImage, // 마커의 이미지
                 map: map // 마커를 표시할 지도 객체
             });
+
+            // 마커에 클릭이벤트를 등록합니다
+            kakao.maps.event.addListener(marker, 'click', function() {
+                setSelectIndex((i))//클릭된 마커의 roomlist index 저장
+                setShow(true);  //부트스트랩 사이드바 열기
+            });
+
             return marker
         });
-        // 클러스터러에 마커들을 추가합니다
-        clusterer.addMarkers(markers);
-
-        kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
-
-            // 클릭한 위도, 경도 정보를 가져옵니다
-            var latlng = mouseEvent.latLng;
-
-            var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, '
-            message += '경도는 ' + latlng.getLng() + ' 입니다'
-            console.log(message)
-        })
-
-    })
-    // 지도에 클릭 이벤트를 등록합니다
-    // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-
+        clusterer.addMarkers(markers);  // 클러스터러에 마커들을 추가합니다
+    },[roomList])   //roomList 변경될 때마다 재렌더링
     /* -------------------------------------------------------------------------- */
 
     return (
         <div>
-            {/* 카카오 map api */}
-            <div id="map" ref={mapContainer} style={{width:'100%',height:'700px'}}></div>
+            <>  {/* 리액트 부트스트랩 - 사이드바 */}
+                <Offcanvas show={show} onHide={handleClose}>
+                    <Offcanvas.Header closeButton>
+                        <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+                    </Offcanvas.Header>
+                    <Offcanvas.Body>
+                        {selectIndex}
+                        {/* 부트스트랩 - Carousels */}
+                        <Carousel>
+                            {/* 선택된 방의 이미지들 출력 */
+                                roomList[selectIndex].getrimg.map((img)=>{
+                                    return <Carousel.Item><img className={"home_img"} src={"http://localhost:8081/static/media/"+img}/></Carousel.Item>
+                                })
+                            }
+                        </Carousel>
+                    </Offcanvas.Body>
+                </Offcanvas>
+            </>
+            <div>
+                {/* 카카오 map api */}
+                <div id="map" ref={mapContainer} style={{width:'100%',height:'700px'}}></div>
+            </div>
         </div>
     )
 }

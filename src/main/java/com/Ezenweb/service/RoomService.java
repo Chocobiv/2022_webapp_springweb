@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,12 @@ public class RoomService {
     private RoomRepository roomRepository;
     @Autowired
     private RoomImgRepository roomImgRepository;
+
+    //현재 스프링의 배포된 내장서버 폴더
+    //String path = "C:\\Users\\504\\IdeaProjects\\2022_webapp_springweb\\build\\resources\\main\\static\\bupload\\"; //나중에 배포할 때는 서버에 업로드해야하므로 경로 설정 이렇게[단, 유료 버전이면 자동 빌드되서 상관x]
+    //현재 스프링의 배포된 내장 서버 내 리액트 리소스 [static->media] 폴더 경로
+    //서버[내장서버]가 재시작되면 빌드폴더에 업로드 파일 사라짐
+    String path = "C:\\Users\\504\\IdeaProjects\\2022_webapp_springweb\\build\\resources\\main\\static\\static\\media\\";
 
     @Transactional
     public boolean write(RoomDto roomDto){
@@ -42,11 +49,19 @@ public class RoomService {
         //2-4. 사진등록 저장
         roomDto.getRimg().forEach((img)->{  //첨부파일 여러개일 경우 혹은 존재할 경우 -> 반복문
             if(!img.getOriginalFilename().equals("")){//실제 첨부파일의 파일명이 존재할 경우
-                RoomImgEntity roomImgEntity =
-                roomImgRepository.save(RoomImgEntity.builder().rimg(img.getOriginalFilename()).build());//필드가 적을 때는 굳이 DTO 필요 없음
+                RoomImgEntity roomImgEntity = roomImgRepository.save(RoomImgEntity.builder().build());//필드가 적을 때는 굳이 DTO 필요 없음
                 //2-5. 방에 사진엔티티 대입  //2-6. 사진엔티티에 방 대입 [양방향 관계]
                 roomEntity.getRoomImgEntityList().add(roomImgEntity);
                 roomImgEntity.setRoomEntity(roomEntity);
+
+                //첨부파일 사진 업로드
+                try {
+                    //첨부파일에 식별자 추가 [pk+파일명(뒤에다가 안 붙이는 이유는 확장자명이 깨질 수 있기 때문!)]
+                    String filename = roomImgEntity.getRimgno()+img.getOriginalFilename();//img.getOriginalFilename() : 첨부파일된 실제 파일명
+                    roomImgEntity.setRimg(filename);//DB에 식별자가 추가된 파일명으로 변경
+                    File file = new File(path+filename);//경로+첨부파일명 => file 객체화 [transferTo함수의 인수로 file 객체 사용]
+                    img.transferTo(file);//transferTo : MultipartFile 인터페이스의 업로드[파일 이동] 함수      기존파일.transferTo(이동할 경로) //예외처리 필수
+                }catch (Exception e) { System.out.println("[업로드 실패] " + e); }
             }
         });
         //3. 사진 등록[FK] -> 나중 처리

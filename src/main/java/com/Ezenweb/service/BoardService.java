@@ -42,7 +42,8 @@ public class BoardService {
 
 
     //첨부파일 경로
-    String path = "C:\\upload\\";   //c드라이브에 upload 폴더 생성해야 함
+    String path = "C:\\upload\\";   //c드라이브에 upload 폴더 생성해야 함 [개발 시에는 편의성을 위해 이렇게]
+
 
     // --------------------- 2. 서비스 ------------------------- //
 
